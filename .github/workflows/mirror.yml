@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       source_repository: 'jerinphilip/gh-workflow-multi-repo-sync'
-      target_repository: 'jerinphilip/gh-workflow-mulit-repo-sync-mirror'
+      target_repository: 'jerinphilip/gh-workflow-multi-repo-sync-mirror'
 
 
     steps:
