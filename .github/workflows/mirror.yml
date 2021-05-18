@@ -14,7 +14,6 @@ jobs:
       source_repository: 'jerinphilip/gh-workflow-multi-repo-sync'
       target_repository: 'jerinphilip/gh-workflow-mulit-repo-sync-mirror'
 
-    if: github.repository == ${{ env.target_repository }}
 
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +24,5 @@ jobs:
           cd source
           git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ env.target_repository }}
           git push mirror main
+
+      if: github.repository == ${{ env.target_repository }}
