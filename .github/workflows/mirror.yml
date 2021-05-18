@@ -1,0 +1,23 @@
+name: Mirror Repo
+
+on:
+  schedule:
+  # Run every hour
+  - cron: "*/10 * * * *"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.repository == 'jerinphilip/gh-workflow-multi-repo-sync'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Push 
+        run: |
+          git clone -b main https://github.com/jerinphilip/gh-workflow-multi-repo-sync
+          cd gh-workflow-multi-repo-sync
+          git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/jerinphilip/gh-workflow-multi-repo-sync-mirror
+          git push mirror main
