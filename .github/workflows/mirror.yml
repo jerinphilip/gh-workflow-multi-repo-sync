@@ -24,5 +24,4 @@ jobs:
           cd source
           git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ env.target_repository }}
           git push mirror main
-
-      if: github.repository == ${{ env.target_repository }}
+        if: github.repository == ${{ env.target_repository }}
