@@ -3,7 +3,7 @@ name: Mirror Repo
 on:
   schedule:
   # Run every hour
-  - cron: "*/10 * * * *"
+  - cron: "0 * * * *"
 
   workflow_dispatch:
 
@@ -20,9 +20,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Push 
+        if: $${ github.repository == env.target_repository }}
         run: |
           git clone -b ${{ env.branch }} https://github.com/${{ env.source_repository }} source
           cd source
           git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ env.target_repository }}
           git push mirror ${{ env.branch }}
-        if: github.repository == ${{ env.target_repository }}
