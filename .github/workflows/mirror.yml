@@ -10,14 +10,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.repository == 'jerinphilip/gh-workflow-multi-repo-sync'
+    env:
+      source_repository: 'jerinphilip/gh-workflow-multi-repo-sync'
+      target_repository: 'jerinphilip/gh-workflow-mulit-repo-sync-mirror'
+
+    if: github.repository == ${{ env.target_repository }}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Push 
         run: |
-          git clone -b main https://github.com/jerinphilip/gh-workflow-multi-repo-sync
-          cd gh-workflow-multi-repo-sync
-          git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/jerinphilip/gh-workflow-multi-repo-sync-mirror
+          git clone -b main https://github.com/${{ env.source_repository }} source
+          cd source
+          git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ env.target_repository }}
           git push mirror main
