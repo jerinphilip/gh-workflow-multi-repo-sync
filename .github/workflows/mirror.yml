@@ -13,6 +13,7 @@ jobs:
     env:
       source_repository: 'jerinphilip/gh-workflow-multi-repo-sync'
       target_repository: 'jerinphilip/gh-workflow-multi-repo-sync-mirror'
+      branch: 'main'
 
 
     steps:
@@ -20,8 +21,8 @@ jobs:
 
       - name: Push 
         run: |
-          git clone -b main https://github.com/${{ env.source_repository }} source
+          git clone -b ${{ env.branch }} https://github.com/${{ env.source_repository }} source
           cd source
           git remote add mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ env.target_repository }}
-          git push mirror main
+          git push mirror ${{ env.branch }}
         if: github.repository == ${{ env.target_repository }}
